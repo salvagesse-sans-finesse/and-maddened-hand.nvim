@@ -1,0 +1,37 @@
+
+> ...the storm booming without in solemn swells; I began to be sensible of
+> strange feelings. I felt a melting in me. No more my splintered heart and
+> maddened hand were turned against the wolfish world...
+
+---
+
+and maddened hand is a notekeeping system for neovim.
+
+== Syntax
+
+While it isn't in any way necessary, I'd encourage users to avoid using
+newlines for any purpose other than delimiting the end of a given "item". The
+plugin will configure neovim to soft-wrap and soft-indent long lines in a way
+which is visually pleasant and which should be easy to navigate in the usual
+vim fashion.
+
+=== Checklists
+
+A checklist might look something like:
+
+  - [ ] unchecked item
+  - [ ] another such
+  - [x] checked item
+    - [ ] checked subitem
+    - [ ] unchecked subitem
+      - [x] checked subsubitem
+  - [ ] yet another top-level unchecked item
+
+Each item should be written entirely on a single line. The plugin will ensure
+that line contents are word-wrapped and indented in a pleasant fashion.
+
+---
+
+> ...I'll try a pagan friend, thought I, since Christian kindness has proved but
+> hollow courtesy...
+
