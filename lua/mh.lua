@@ -48,16 +48,26 @@ M.checkbox_toggle = function()
 end
 
 M.checklist_indent = function()
+  local _, col = unpack(vim.api.nvim_win_get_cursor(0))
   local line = vim.api.nvim_get_current_line()
   if is_checkbox(line) then
-    vim.cmd([[norm! >>ll]])
+    if col >= #line then
+      vim.cmd([[norm! >>]])
+      vim.cmd([[startinsert!]])
+    else
+      vim.cmd([[norm! >>ll]])
+    end
   end
 end
 
 M.checklist_dedent = function()
+  local _, col = unpack(vim.api.nvim_win_get_cursor(0))
   local line = vim.api.nvim_get_current_line()
   if is_checkbox(line) then
-    if line:sub(1, 1) == '-' then
+    if col >= #line then
+      vim.cmd([[norm! <<]])
+      vim.cmd([[startinsert!]])
+    elseif line:sub(1, 1) == '-' then
       vim.cmd([[norm! <<]])
     else
       vim.cmd([[norm! hh<<]])
