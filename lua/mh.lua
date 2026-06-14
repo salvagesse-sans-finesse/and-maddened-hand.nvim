@@ -7,11 +7,15 @@ local nmap = function(lhs, rhs, opts)
   vim.keymap.set('n', lhs, rhs, opts)
 end
 
+local is_checkbox = function(line)
+  local regex = vim.regex([[^\s*- \[.\] ]])
+  return regex:match_str(line)
+end
+
 local checkbox_set = function(newstate)
   local idx = vim.api.nvim_win_get_cursor(0)[1] - 1
   local line = vim.api.nvim_get_current_line()
-  local regex = vim.regex([[^\s*- \[.\] ]])
-  if regex:match_str(line) then
+  if is_checkbox(line) then
     -- There's a box here we can tick. Tick it.
     local newbox = "[" .. newstate .. "] "
     local newline = vim.fn.substitute(line, [[\[.\] ]], newbox, "")
@@ -40,6 +44,24 @@ M.checkbox_toggle = function()
     M.checkbox_untick()
   else
     M.checkbox_tick()
+  end
+end
+
+M.checklist_indent = function()
+  local line = vim.api.nvim_get_current_line()
+  if is_checkbox(line) then
+    vim.cmd([[norm! >>ll]])
+  end
+end
+
+M.checklist_dedent = function()
+  local line = vim.api.nvim_get_current_line()
+  if is_checkbox(line) then
+    if line:sub(1, 1) == '-' then
+      vim.cmd([[norm! <<]])
+    else
+      vim.cmd([[norm! hh<<]])
+    end
   end
 end
 
