@@ -13,3 +13,8 @@ vim.wo.wrap = true
 -- from was itself a list item.
 vim.bo.comments = [[:- [ ] ,s:- [x] ,m:- [ ] ,e:- [ ] ]]
 vim.bo.formatoptions = vim.bo.formatoptions .. 'ro/'
+
+-- Hard indentation levels.
+vim.bo.shiftwidth = 2
+vim.bo.tabstop = 2
+vim.bo.expandtab = true
