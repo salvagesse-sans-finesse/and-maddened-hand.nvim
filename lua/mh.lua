@@ -75,5 +75,25 @@ M.checklist_dedent = function()
   end
 end
 
+local checklist_delete_empty_else_send_input = function(input)
+  local line = vim.api.nvim_get_current_line()
+  local regex = vim.regex([[^\s*- \[.\]\s*$]])
+  if regex:match_str(line) then
+    vim.cmd([[norm! 0D]])
+  else
+    vim.api.nvim_input(input)
+  end
+end
+
+-- Meant to be imapped to <BS>
+M.checklist_delete_empty_else_backspace = function()
+  checklist_delete_empty_else_send_input("<C-h>")
+end
+
+-- Meant to be imapped to <Return>
+M.checklist_delete_empty_else_newline = function()
+  checklist_delete_empty_else_send_input("<C-j>")
+end
+
 return M
 
