@@ -18,3 +18,7 @@ vim.bo.formatoptions = vim.bo.formatoptions .. 'ro/'
 vim.bo.shiftwidth = 2
 vim.bo.tabstop = 2
 vim.bo.expandtab = true
+
+-- Basic .mh keywords will be modelled loosely after the ":command-name"
+-- keywords in vim's helpfiles.
+vim.bo.iskeyword = vim.bo.iskeyword .. ",:"

@@ -1,0 +1,44 @@
+#!/usr/bin/env bash
+
+recurse=no
+tagfile=tags
+
+while test "$#" -gt 0; do
+  case "$1" in
+    -R|--recurse)
+      recurse=yes
+      shift
+      ;;
+    -o|-f)
+      tagfile="$2"
+      shift 2
+      ;;
+    --)
+      shift
+      break
+      ;;
+    -*)
+      echo "Unknown option: $1" >&2
+      exit 2
+      ;;
+    *)
+      break
+      ;;
+  esac
+done
+
+if test "$#" -eq 0; then
+  set -- . "$@"
+fi
+
+while test "$#" -gt 0; do
+  if test "$recurse" = yes; then
+    find "$1" -type f
+  else
+    echo "$1"
+  fi
+  shift
+done | grep '\.mh$' | while read filename; do
+  echo ":$(basename ${filename%.mh})	$filename	go"
+done > "$tagfile"
+
