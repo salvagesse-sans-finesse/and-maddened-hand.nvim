@@ -95,5 +95,30 @@ M.checklist_delete_empty_else_newline = function()
   checklist_delete_empty_else_send_input("<C-j>")
 end
 
+local is_mh_link = function(word)
+  return word:sub(1, 1) == ':'
+end
+
+-- Meant to be nmapped to C-]
+-- TODO Come up with a version for vmap as well.
+M.tag_or_edit = function()
+  local keyword = vim.fn.expand("<cword>")
+  local ok, err = pcall(vim.cmd, "tag " .. keyword)
+  if (not ok) and err:find("E426:") and is_mh_link(keyword) then
+    -- Before we move to the new buffer, save our current position to the tag
+    -- stack.
+    local pos = vim.fn.getcurpos()
+    local item = {
+      bufnr = pos[1],
+      pos = pos,
+    }
+    local win = vim.api.nvim_get_current_win()
+    vim.fn.settagstack(win, { items = { item } }, "a")
+
+    -- Now leave.
+    vim.cmd("e " .. keyword:sub(2) .. ".mh")
+  end
+end
+
 return M
 

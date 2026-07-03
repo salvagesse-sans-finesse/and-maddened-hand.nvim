@@ -30,6 +30,16 @@ A checklist might look something like:
 Each item should be written entirely on a single line. The plugin will ensure
 that line contents are word-wrapped and indented in a pleasant fashion.
 
+=== Links
+
+A link from a mh file to FooBar.mh would be written like:
+
+  :FooBar
+
+Such a link can be inserted anywhere that text might otherwise go, such as:
+
+  - [ ] update :FooBar process doc
+
 ---
 
 > ...I'll try a pagan friend, thought I, since Christian kindness has proved but
