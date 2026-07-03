@@ -1,9 +1,8 @@
 local M = {}
 
-local bufnr = vim.api.nvim_get_current_buf()
 local nmap = function(lhs, rhs, opts)
   opts = opts or {remap = true}
-  opts.buffer = bufnr
+  opts.buffer = vim.api.nvim_get_current_buf()
   vim.keymap.set('n', lhs, rhs, opts)
 end
 
